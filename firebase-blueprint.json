@@ -1,0 +1,77 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "role": { "type": "string", "enum": ["admin", "user"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "role", "createdAt"]
+    },
+    "Plan": {
+      "title": "Plan",
+      "description": "Google Play redeem code plan",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "price": { "type": "number" },
+        "description": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "badgeText": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "price", "description", "imageUrl", "createdAt"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "User purchase order",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "planId": { "type": "string" },
+        "planName": { "type": "string" },
+        "price": { "type": "number" },
+        "status": { "type": "string", "enum": ["pending", "completed", "approved", "rejected"] },
+        "utrId": { "type": "string" },
+        "screenshotUrl": { "type": "string" },
+        "giftCode": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "adminNote": { "type": "string" }
+      },
+      "required": ["userId", "planId", "planName", "price", "status", "utrId", "screenshotUrl", "createdAt"]
+    },
+    "Settings": {
+      "title": "Settings",
+      "description": "Global app settings like payment info",
+      "type": "object",
+      "properties": {
+        "qrCodeUrl": { "type": "string" },
+        "upiId": { "type": "string" }
+      },
+      "required": ["qrCodeUrl", "upiId"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/plans/{planId}": {
+      "schema": "Plan",
+      "description": "Available gift card plans"
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Purchase orders"
+    },
+    "/settings/{settingId}": {
+      "schema": "Settings",
+      "description": "Global configuration"
+    }
+  }
+}
